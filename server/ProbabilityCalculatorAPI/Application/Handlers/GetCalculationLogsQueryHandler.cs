@@ -1,22 +1,16 @@
 using System.Text.Json;
 using ProbabilityCalculatorAPI.Infrastructure.Services;
 
-namespace ProbabilityCalculatorAPI.Application.Handlers
-{
-    public class GetCalculationLogsQueryHandler
-    {
-        public object[] Handle()
-        {
+namespace ProbabilityCalculatorAPI.Application.Handlers {
+    public class GetCalculationLogsQueryHandler {
+        public object[] Handle() {
             var logLines = EventLogger.ReadAllLogs();
             return logLines
-                .Select(logLine =>
-                {
-                    try
-                    {
+                .Select(logLine => {
+                    try {
                         return JsonSerializer.Deserialize<object>(logLine);
                     }
-                    catch
-                    {
+                    catch {
                         return null;
                     }
                 })

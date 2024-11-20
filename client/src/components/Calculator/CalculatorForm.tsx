@@ -55,7 +55,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
   };
 
   return (
-    <div className={styles['form-container']}>
+    <div data-testid="calculator-form" className={styles['form-container']}>
       <div className={styles['input-group']}>
         <label>P(A):</label>
         <input
@@ -91,7 +91,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           </select>
         </label>
       </div>
-      <button onClick={handleSubmit}>Calculate</button>
+      <button data-testid="calculate-button" onClick={handleSubmit}>Calculate</button>
     </div>
   );
 };

@@ -6,7 +6,7 @@ interface CalculatorResultProps {
 }
 
 const CalculatorResult: React.FC<CalculatorResultProps> = ({ result }) => (
-  <div className={styles['calculator-result']}>
+  <div data-testid="calculator-result" className={styles['calculator-result']}>
     {result && <>
       <h3>Result</h3>
       <p>{result}</p>

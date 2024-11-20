@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProbabilityCalculatorAPI.Application.Commands;
 using ProbabilityCalculatorAPI.Application.Handlers;
+using ProbabilityCalculatorAPI.Infrastructure.Interfaces;
 
 namespace ProbabilityCalculatorAPI.API.Controllers {
     [ApiController]
@@ -9,9 +10,9 @@ namespace ProbabilityCalculatorAPI.API.Controllers {
         private readonly CalculateCommandHandler _handler;
         private readonly GetCalculationLogsQueryHandler _queryHandler;
 
-        public CalculationController() {
-            _handler = new CalculateCommandHandler();
-            _queryHandler = new GetCalculationLogsQueryHandler();
+        public CalculationController(CalculateCommandHandler handler, GetCalculationLogsQueryHandler queryHandler) {
+            _handler = handler;
+            _queryHandler = queryHandler;
         }
 
         [HttpPost("calculate")]
@@ -27,13 +28,14 @@ namespace ProbabilityCalculatorAPI.API.Controllers {
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("logs")]
         public IActionResult GetCalculationLogs() {
             try {
                 var logs = _queryHandler.Handle();
                 return Ok(logs);
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 return StatusCode(500, $"Error retrieving logs: {ex.Message}");
             }
         }

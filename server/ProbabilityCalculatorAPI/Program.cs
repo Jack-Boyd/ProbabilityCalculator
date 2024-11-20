@@ -1,4 +1,12 @@
+using ProbabilityCalculatorAPI.Application.Handlers;
+using ProbabilityCalculatorAPI.Infrastructure.Interfaces;
+using ProbabilityCalculatorAPI.Infrastructure.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IEventLogger, EventLogger>();
+builder.Services.AddTransient<GetCalculationLogsQueryHandler>();
+builder.Services.AddTransient<CalculateCommandHandler>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

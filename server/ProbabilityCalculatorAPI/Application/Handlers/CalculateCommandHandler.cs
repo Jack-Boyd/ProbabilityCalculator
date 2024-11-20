@@ -1,9 +1,13 @@
 using ProbabilityCalculatorAPI.Application.Commands;
 using ProbabilityCalculatorAPI.Domain.Entities;
-using ProbabilityCalculatorAPI.Infrastructure.Services;
+using ProbabilityCalculatorAPI.Infrastructure.Interfaces;
 
 namespace ProbabilityCalculatorAPI.Application.Handlers {
     public class CalculateCommandHandler {
+        private readonly IEventLogger _logger;
+        public CalculateCommandHandler(IEventLogger logger) {
+            _logger = logger;
+        }
         public Calculation Handle(CalculateCommand command) {
             Console.WriteLine(command);
             var calculation = new Calculation(command.ProbabilityA, command.ProbabilityB, command.OperationType);
@@ -21,7 +25,7 @@ namespace ProbabilityCalculatorAPI.Application.Handlers {
                 Result = calculation.Result
             };
 
-            EventLogger.LogEvent(logEntry);
+            _logger.LogEvent(logEntry);
         }
     }
 }
